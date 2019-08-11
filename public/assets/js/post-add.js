@@ -13,11 +13,10 @@ $.ajax({
 
 $('#feature').on('change', function () {
 
-
-    formData.append('file', this.files[0]);
-
+    var fileData = this.files[0];
     // 图片是二进制数据 ajax它本身不支持二进制数据上传
     var formData = new FormData();
+    formData.append('file', fileData);
 
     // console.log(this.files[0]);
     // console.log(formData);
@@ -31,12 +30,34 @@ $('#feature').on('change', function () {
         processData: false,
         // 告诉$.ajax方法不要设置请求参数的类型
         contentType: false,
-        success:function(res){
+        success: function (res) {
             //把路径写到隐藏域
             $('#hidden').val(res[0].file);
             // 实现图片预览
-            $('#pImg').attr('src',res[0].file).show();
+            $('#pImg').attr('src', res[0].file).show();
         }
     })
 });
+
+
+// 完成添加文章的功能 
+// 提交保存按钮添加id 并且type属性就是submit 不用改
+$('#pAdd').on('click', function () {
+    // console.log($('#pForm').serialize());
+    //return;
+    $.ajax({
+        type: 'post',
+        url: '/posts',
+        data: $('#pForm').serialize(),
+        success: function (res) {
+            // 需要跳转到展示文章的列表页
+            location.href = "/admin/posts.html";
+        },
+        error: function (err) {
+            console.log(err);
+        }
+
+    })
+})
+
 
