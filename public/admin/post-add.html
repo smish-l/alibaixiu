@@ -10,6 +10,7 @@
 
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8">
   <title>Add new post &laquo; Admin</title>
@@ -19,6 +20,7 @@
   <link rel="stylesheet" href="../assets/css/admin.css">
   <script src="../assets/vendors/nprogress/nprogress.js"></script>
 </head>
+
 <body>
   <script>NProgress.start()</script>
 
@@ -46,30 +48,29 @@
           </div>
           <div class="form-group">
             <label for="content">文章内容</label>
-            <textarea id="content" class="form-control input-lg" name="content" cols="30" rows="10" placeholder="内容"></textarea>
+            <textarea id="content" class="form-control input-lg" name="content" cols="30" rows="10"
+              placeholder="内容"></textarea>
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label for="feature">特色图像</label>
             <!-- show when image chose -->
-            <img class="help-block thumbnail" style="display: none" id="pImg">
+            <img class="help-block thumbnail" style="display: none" id="prev">
             <input id="feature" class="form-control" name="feature" type="file">
+            <!-- 隐藏域 就为是保存上传图片的地址 -->
+            <input type="hidden" name="thumbnail" id="thumbnail">
           </div>
-
-          <!-- 隐藏域 -->
-          <input type="hidden" name="thumbnail" id="hidden">
-          
           <div class="form-group">
             <label for="category">所属分类</label>
             <select id="category" class="form-control" name="category">
               <option value="1">未分类</option>
-            
+              <option value="2">潮生活</option>
             </select>
           </div>
           <div class="form-group">
             <label for="created">发布时间</label>
-            <input id="created" class="form-control" name="createAt" type="datetime-local">
+            <input id="created" class="form-control" name="createAt" type="datetime-local" >
           </div>
           <div class="form-group">
             <label for="status">状态</label>
@@ -79,7 +80,8 @@
             </select>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary" type="submit" id="pAdd">保存</button>
+            <button class="btn btn-primary" type="button" id="pAdd">保存</button>
+            <button class="btn btn-primary" type="button" id="pEdit" style="display: none;">修改</button>
           </div>
         </div>
       </form>
@@ -125,19 +127,17 @@
 
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
-
-
-  <script src="../assets/js/post-add.js"></script>
+  <!-- 引入模板引擎 -->
   <script src="../assets/vendors/art-template/template-web.js"></script>
+  <script src="../assets/js/post-add.js"></script>
 
-
-  <script type="text/html" id="pTpl">
-
-    {{each list}}
-        <option value="{{@$value._id}}">{{$value.title}}</option>
+  <script type="text/html" id="categoryTpl">
+    {{each data}}
+    <option value="{{@$value._id}}">{{$value.title}}</option>
     {{/each}}
-
   </script>
+  
   <script>NProgress.done()</script>
 </body>
+
 </html>
